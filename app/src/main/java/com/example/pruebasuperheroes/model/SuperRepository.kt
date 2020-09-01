@@ -1,8 +1,6 @@
 package com.example.pruebasuperheroes.model
 
-import android.telecom.Call
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.pruebasuperheroes.model.api.RetrofitClient
 import com.example.pruebasuperheroes.model.db.SuperDao
@@ -13,6 +11,7 @@ import retrofit2.Response
 class SuperRepository(private val superDao: SuperDao):ISuperRepository {
 
     var superHeroes = superDao.getAll()
+    var listaDataApi = mutableListOf<SuperHeroe>()
 
     override fun loadData() {
         val retrofit = RetrofitClient.retrofitInstance()
@@ -26,6 +25,7 @@ class SuperRepository(private val superDao: SuperDao):ISuperRepository {
                     Log.d("AAA", "${it.name} primera imagen ${it.images.xs}")
                     checkValues(it)
                 }
+                superHeroes = MutableLiveData(listaDataApi)
             }
 
             override fun onFailure(call: retrofit2.Call<ArrayList<SuperHeroe>>, t: Throwable) {
@@ -41,14 +41,16 @@ class SuperRepository(private val superDao: SuperDao):ISuperRepository {
 
     override fun checkValues(dataApi: SuperHeroe) {
         var count = 0
-        superHeroes.value!!.stream().map {
-            if (it.id == dataApi.id){
+        for (ele in superHeroes.value!!){
+            if (ele.id == dataApi.id){
                 count = 1
+                Log.d("AAA", "count ${count}")
             }
         }
+
         if (count == 0){
             insertOnRoom(dataApi)
-            (superHeroes.value as MutableList<SuperHeroe>).add(dataApi)
         }
+        listaDataApi.add(dataApi)
     }
 }
