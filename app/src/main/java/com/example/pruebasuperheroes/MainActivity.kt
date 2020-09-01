@@ -17,13 +17,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val model = ViewModelProvider(this).get(SuperViewModel::class.java)
 
-        model.superHeroes.observe(this, Observer {
-            for (ele in it){
-                Log.d("AAA", "Lista en Main Super id ${ele.id}")
-            }
-        })
-        model.repository.loadData()
     }
 }
