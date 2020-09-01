@@ -6,8 +6,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.pruebasuperheroes.model.SuperRepository
 import com.example.pruebasuperheroes.model.db.SuperDB
+import com.example.pruebasuperheroes.viewmodel.SuperViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,13 +17,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val repository = SuperRepository(SuperDB.getDatabase(this).dao())
+        val model = ViewModelProvider(this).get(SuperViewModel::class.java)
 
-        repository.superHeroes.observe(this, Observer {
+        model.superHeroes.observe(this, Observer {
             for (ele in it){
                 Log.d("AAA", "Lista en Main Super id ${ele.id}")
             }
         })
-        repository.loadData()
+        model.repository.loadData()
     }
 }

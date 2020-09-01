@@ -1,16 +1,20 @@
 package com.example.pruebasuperheroes.model
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.pruebasuperheroes.model.api.RetrofitClient
+import com.example.pruebasuperheroes.model.db.SuperDBManager
 import com.example.pruebasuperheroes.model.db.SuperDao
 import com.example.pruebasuperheroes.model.pojo.SuperHeroe
+import kotlinx.coroutines.CoroutineScope
 import retrofit2.Callback
 import retrofit2.Response
 
-class SuperRepository(private val superDao: SuperDao):ISuperRepository {
+class SuperRepository(context: Context, scope: CoroutineScope):ISuperRepository {
 
-    var superHeroes = superDao.getAll()
+    val superDBManager = SuperDBManager(context, scope)
+    var superHeroes = superDBManager.superHeroe
     var listaDataApi = mutableListOf<SuperHeroe>()
 
     override fun loadData() {
@@ -36,7 +40,7 @@ class SuperRepository(private val superDao: SuperDao):ISuperRepository {
 
     override fun insertOnRoom(valor: SuperHeroe) {
         Log.d("AAA", "Lista ${valor.id}")
-        superDao.insertSuper(valor)
+        superDBManager.insert(valor)
     }
 
     override fun checkValues(dataApi: SuperHeroe) {
