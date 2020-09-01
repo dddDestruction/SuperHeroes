@@ -4,5 +4,5 @@ import com.example.pruebasuperheroes.model.pojo.SuperHeroe
 import kotlinx.coroutines.Job
 
 interface ISuperDBManager {
-    fun insert(valor: SuperHeroe): Job
+    fun insert(valor: List<SuperHeroe>): Job
 }

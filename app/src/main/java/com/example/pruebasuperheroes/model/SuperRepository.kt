@@ -27,9 +27,11 @@ class SuperRepository(context: Context, scope: CoroutineScope):ISuperRepository 
             ) {
                 response.body()?.map {
                     Log.d("AAA", "${it.name} primera imagen ${it.images.xs}")
-                    checkValues(it)
+                    listaDataApi.add(it)
+                    //checkValues(it)
                 }
-                superHeroes = MutableLiveData(listaDataApi)
+                superDBManager.insert(listaDataApi)
+                //superHeroes = MutableLiveData(listaDataApi)
             }
 
             override fun onFailure(call: retrofit2.Call<ArrayList<SuperHeroe>>, t: Throwable) {
@@ -40,7 +42,7 @@ class SuperRepository(context: Context, scope: CoroutineScope):ISuperRepository 
 
     override fun insertOnRoom(valor: SuperHeroe) {
         Log.d("AAA", "Lista ${valor.id}")
-        superDBManager.insert(valor)
+        //superDBManager.insert(valor)
     }
 
     override fun checkValues(dataApi: SuperHeroe) {

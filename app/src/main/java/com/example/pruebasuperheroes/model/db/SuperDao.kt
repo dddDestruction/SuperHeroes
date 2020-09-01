@@ -12,7 +12,7 @@ interface SuperDao {
 
     //Inserta varios valores en Room DB
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertSuper(vararg heroes: SuperHeroe)
+    fun insertSuper(heroes: List<SuperHeroe>)
 
     //Obtiene todos los valores desde Room DB
     @Query("SELECT * FROM super_heroes")
