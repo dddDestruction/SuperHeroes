@@ -4,6 +4,6 @@ import com.example.pruebasuperheroes.model.pojo.SuperHeroe
 
 interface ISuperRepository {
     fun loadData()
-    fun insertOnRoom(lista:MutableList<SuperHeroe>)
-    fun checkValues(dataRoom: MutableList<SuperHeroe>,dataApi: MutableList<SuperHeroe>)
+    fun insertOnRoom(valor:SuperHeroe)
+    fun checkValues(dataApi: SuperHeroe)
 }

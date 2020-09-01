@@ -5,13 +5,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.pruebasuperheroes.model.api.RetrofitClient
+import com.example.pruebasuperheroes.model.db.SuperDao
 import com.example.pruebasuperheroes.model.pojo.SuperHeroe
 import retrofit2.Callback
 import retrofit2.Response
 
-class SuperRepository():ISuperRepository {
+class SuperRepository(private val superDao: SuperDao):ISuperRepository {
 
-    var superHeroes = MutableLiveData<MutableList<SuperHeroe>>(mutableListOf<SuperHeroe>())
+    var superHeroes = superDao.getAll()
 
     override fun loadData() {
         val retrofit = RetrofitClient.retrofitInstance()
@@ -22,8 +23,8 @@ class SuperRepository():ISuperRepository {
                 response: Response<ArrayList<SuperHeroe>>
             ) {
                 response.body()?.map {
-                    Log.d("AAA", "${it.name}")
-                    superHeroes.value!!.add(it)
+                    Log.d("AAA", "${it.name} primera imagen ${it.images.xs}")
+                    checkValues(it)
                 }
             }
 
@@ -33,12 +34,21 @@ class SuperRepository():ISuperRepository {
         })
     }
 
-    override fun insertOnRoom(lista: MutableList<SuperHeroe>) {
-        TODO("Not yet implemented")
+    override fun insertOnRoom(valor: SuperHeroe) {
+        Log.d("AAA", "Lista ${valor.id}")
+        superDao.insertSuper(valor)
     }
 
-    override fun checkValues(dataRoom: MutableList<SuperHeroe>, dataApi: MutableList<SuperHeroe>) {
-        TODO("Not yet implemented")
+    override fun checkValues(dataApi: SuperHeroe) {
+        var count = 0
+        superHeroes.value!!.stream().map {
+            if (it.id == dataApi.id){
+                count = 1
+            }
+        }
+        if (count == 0){
+            insertOnRoom(dataApi)
+            (superHeroes.value as MutableList<SuperHeroe>).add(dataApi)
+        }
     }
-
 }
