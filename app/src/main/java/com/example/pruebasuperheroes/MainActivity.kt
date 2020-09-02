@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.pruebasuperheroes.model.SuperRepository
 import com.example.pruebasuperheroes.model.db.SuperDB
 import com.example.pruebasuperheroes.viewmodel.SuperViewModel
+import com.example.pruebasuperheroes.views.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +18,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment, MainFragment.newInstance(), "Main")
+            .commit()
     }
 }

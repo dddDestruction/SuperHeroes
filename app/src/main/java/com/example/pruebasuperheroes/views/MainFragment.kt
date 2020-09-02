@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -18,7 +20,7 @@ import com.example.pruebasuperheroes.viewmodel.SuperViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
-class MainFragment : Fragment(), IMainFragment {
+class MainFragment : Fragment(), IMainFragment, FragmentCallback {
 
 
     var listaSuperHeroes = mutableListOf<SuperHeroe>()
@@ -42,7 +44,7 @@ class MainFragment : Fragment(), IMainFragment {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance() =
             MainFragment().apply {
                 arguments = Bundle().apply {
                 }
@@ -53,13 +55,22 @@ class MainFragment : Fragment(), IMainFragment {
         val model = ViewModelProvider(this).get(SuperViewModel::class.java)
 
          model.superHeroes.observe(this.viewLifecycleOwner, Observer {
-             recyclerView.adapter = SuperAdapter(it)
+             recyclerView.adapter = SuperAdapter(it, this)
         })
         model.repository.loadData()
     }
 
     override fun initRecyclerView() {
-        recyclerView.adapter = SuperAdapter(listaSuperHeroes)
+        recyclerView.adapter = SuperAdapter(listaSuperHeroes, this)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
     }
+
+    override fun notificarClick(superHeroe: SuperHeroe) {
+        requireActivity()
+            .supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment, SuperDetalleFragment.newInstance(superHeroe), "detalle")
+            .commit()
+    }
+
 }

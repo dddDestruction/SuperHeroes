@@ -9,7 +9,9 @@ import com.example.pruebasuperheroes.model.pojo.SuperHeroe
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_recycler.view.*
 
-class SuperAdapter(private val lista: List<SuperHeroe>) : RecyclerView.Adapter<SuperAdapter.SuperHolder>() {
+class SuperAdapter(private var lista: List<SuperHeroe>, var listener:FragmentCallback) : RecyclerView.Adapter<SuperAdapter.SuperHolder>() {
+
+    lateinit var  selectedItem:SuperHeroe
 
     class SuperHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val texto = itemView.textView
@@ -28,10 +30,20 @@ class SuperAdapter(private val lista: List<SuperHeroe>) : RecyclerView.Adapter<S
     }
 
     override fun onBindViewHolder(holder: SuperAdapter.SuperHolder, position: Int) {
-        holder.texto.text = lista.get(position).name
+        var heroe = lista.get(position)
+        holder.texto.text = heroe.name
         Picasso.get()
-            .load(lista.get(position).images.sm)
+            .load(heroe.images.sm)
             .resize(400,400)
             .into(holder.imagen)
+        holder.imagen.setOnClickListener{
+            listener.notificarClick(heroe )
+        }
+
+    }
+
+    fun update(list:MutableList<SuperHeroe>){
+        lista = list
+        notifyDataSetChanged()
     }
 }
