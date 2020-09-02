@@ -1,14 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".views.SuperDetalleFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <data>
+        <variable
+            name="heroe"
+            type="com.example.pruebasuperheroes.model.pojo.SuperHeroe" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-</FrameLayout>
+
+    <ImageView
+        android:id="@+id/imagen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombre" />
+
+    <TextView
+        android:id="@+id/nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="@dimen/titulos"
+        android:text="@{heroe.name}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/label_intelligence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margen_20"
+        android:layout_marginTop="10dp"
+        android:text="@string/label_intelligence"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagen" />
+
+    <TextView
+        android:id="@+id/intelligence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margen_20"
+        android:text="@{Integer.toString(heroe.powerstats.intelligence)}"
+        app:layout_constraintStart_toEndOf="@+id/label_intelligence"
+        app:layout_constraintTop_toTopOf="@+id/label_intelligence" />
+
+    <TextView
+        android:id="@+id/label_strength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margen_20"
+        android:layout_marginTop="@dimen/margen_chico"
+        android:text="@string/label_strength"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/intelligence" />
+
+    <TextView
+        android:id="@+id/strength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margen_20"
+        android:text="@{Integer.toString(heroe.powerstats.strength)}"
+        app:layout_constraintStart_toEndOf="@+id/label_strength"
+        app:layout_constraintTop_toTopOf="@+id/label_strength" />
+
+    <TextView
+        android:id="@+id/label_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margen_20"
+        android:layout_marginTop="@dimen/margen_chico"
+        android:text="@string/label_speed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/strength" />
+
+    <TextView
+        android:id="@+id/speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margen_20"
+        android:text="@{Integer.toString(heroe.powerstats.speed)}"
+        app:layout_constraintStart_toEndOf="@+id/label_speed"
+        app:layout_constraintTop_toTopOf="@+id/label_speed" />
+
+    <TextView
+        android:id="@+id/label_durability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margen_20"
+        android:layout_marginTop="@dimen/margen_chico"
+        android:text="@string/label_durability"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/speed" />
+
+    <TextView
+        android:id="@+id/durability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margen_20"
+        android:text="@{Integer.toString(heroe.powerstats.durability)}"
+        app:layout_constraintStart_toEndOf="@+id/label_durability"
+        app:layout_constraintTop_toTopOf="@+id/label_durability" />
+
+    <TextView
+        android:id="@+id/label_power"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margen_20"
+        android:layout_marginTop="@dimen/margen_chico"
+        android:text="@string/label_power"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/durability" />
+
+    <TextView
+        android:id="@+id/power"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margen_20"
+        android:text="@{Integer.toString(heroe.powerstats.power)}"
+        app:layout_constraintStart_toEndOf="@+id/label_power"
+        app:layout_constraintTop_toTopOf="@+id/label_power" />
+
+    <TextView
+        android:id="@+id/label_combat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margen_20"
+        android:layout_marginTop="@dimen/margen_chico"
+        android:text="@string/label_combat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/power" />
+
+    <TextView
+        android:id="@+id/combat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margen_20"
+        android:text="@{Integer.toString(heroe.powerstats.combat)}"
+        app:layout_constraintStart_toEndOf="@+id/label_combat"
+        app:layout_constraintTop_toTopOf="@+id/label_combat" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -70,6 +70,7 @@ class MainFragment : Fragment(), IMainFragment, FragmentCallback {
             .supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment, SuperDetalleFragment.newInstance(superHeroe), "detalle")
+            .addToBackStack("detalle")
             .commit()
     }
 

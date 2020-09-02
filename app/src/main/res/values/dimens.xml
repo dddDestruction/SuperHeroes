@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margen_chico">10dp</dimen>
+    <dimen name="margen_20">20dp</dimen>
+    <dimen name="titulos">30sp</dimen>
+</resources>
