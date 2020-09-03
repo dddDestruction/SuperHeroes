@@ -42,7 +42,7 @@ class SuperAdapter(private var lista: List<SuperHeroe>, var listener:FragmentCal
 
     }
 
-    fun update(list:MutableList<SuperHeroe>){
+    fun update(list:List<SuperHeroe>){
         lista = list
         notifyDataSetChanged()
     }

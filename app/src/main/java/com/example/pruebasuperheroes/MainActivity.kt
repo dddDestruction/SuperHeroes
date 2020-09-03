@@ -18,6 +18,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        crearFragmento()
+    }
+
+    fun crearFragmento(){
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment, MainFragment.newInstance(), "Main")

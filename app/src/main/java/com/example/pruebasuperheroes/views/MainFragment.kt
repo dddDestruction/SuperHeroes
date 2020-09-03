@@ -13,6 +13,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.example.pruebasuperheroes.R
 import com.example.pruebasuperheroes.model.pojo.SuperHeroe
@@ -24,8 +25,8 @@ class MainFragment : Fragment(), IMainFragment, FragmentCallback {
 
 
     var listaSuperHeroes = mutableListOf<SuperHeroe>()
-    //var superAdapter = SuperAdapter(listaSuperHeroes)
-    var recyclerView = recycler
+    lateinit var superAdapter:SuperAdapter
+    lateinit var recyclerView:RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,13 +56,14 @@ class MainFragment : Fragment(), IMainFragment, FragmentCallback {
         val model = ViewModelProvider(this).get(SuperViewModel::class.java)
 
          model.superHeroes.observe(this.viewLifecycleOwner, Observer {
-             recyclerView.adapter = SuperAdapter(it, this)
+             superAdapter.update(it)
         })
         model.repository.loadData()
     }
 
     override fun initRecyclerView() {
-        recyclerView.adapter = SuperAdapter(listaSuperHeroes, this)
+        superAdapter = SuperAdapter(listaSuperHeroes, this)
+        recyclerView.adapter = superAdapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
     }
 
